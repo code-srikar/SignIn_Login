@@ -1,0 +1,19 @@
+.container {
+    width: 600px;
+    margin: auto;
+    padding: 30px;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+#title {
+    margin: auto;
+    padding-bottom: 20px;
+}
+
+.btn {
+    margin-left: 230px;
+}
