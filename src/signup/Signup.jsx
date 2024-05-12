@@ -14,14 +14,14 @@ function SignUp() {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-        const uname = e.target.uname.value;
 
-        if (type == 'signup') {
+        if (!login) {
+            const uname = e.target.uname.value;
             createUserWithEmailAndPassword(database, email, password)
                 .then(
                     data => {
                         console.log(data);
-                        history('../Home');
+                        setLogin(true)
                     }
                 )
                 .catch(
@@ -44,12 +44,26 @@ function SignUp() {
     }
 
     return <div className='container bg-dark'>
-        <h1 id='title' style={{ color: 'white' }}>{login ? 'Sign In' : 'Sign Up'}</h1>
-        <form onSubmit={(e) => handleOnSubmit(e, login ? 'signin' : 'signup')}>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Username</span>
-                <input type="text" id='uname' class="form-control" placeholder="Enter Your Username" aria-label="Username" aria-describedby="basic-addon1" />
-            </div>
+        {
+            login ?
+                <div id='title'>
+                    <h1>Sign In</h1>
+                </div>
+                :
+                <div id='title'>
+                    <h1>Create Account</h1>
+                </div>
+        }
+        <form onSubmit={(e) => handleOnSubmit(e)}>
+            {
+                login ?
+                    <></>
+                    : <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Username</span>
+                        <input type="text" id='uname' class="form-control" placeholder="Enter Your Username" aria-label="Username" aria-describedby="basic-addon1" />
+                    </div>
+            }
+
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Email</span>
                 <input type="email" id='email' class="form-control" placeholder="Enter Your Email" aria-label="Username" aria-describedby="basic-addon1" />
@@ -58,7 +72,12 @@ function SignUp() {
                 <span class="input-group-text" id="basic-addon1">Password</span>
                 <input type="password" id='password' class="form-control" placeholder="Enter Your Password" aria-label="Username" aria-describedby="basic-addon1" />
             </div>
-            <input class="btn btn-primary" type="submit">{login ? 'Sign In' : 'Sign Up'}</input>
+            {
+                login ?
+                    <input class="btn btn-primary" type="submit" value={'Sign In'}></input>
+                    :
+                    <input class="btn btn-primary" type="submit" value={'Sign Up'}></input>
+            }
         </form>
     </div>
 }
